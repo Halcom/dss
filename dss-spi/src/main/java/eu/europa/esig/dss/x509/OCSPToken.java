@@ -43,6 +43,7 @@ import eu.europa.esig.dss.DSSException;
 import eu.europa.esig.dss.DSSRevocationUtils;
 import eu.europa.esig.dss.DSSUtils;
 import eu.europa.esig.dss.SignatureAlgorithm;
+import eu.europa.esig.dss.x509.crl.CRLReasonEnum;
 
 /**
  * OCSP Signed Token which encapsulate BasicOCSPResp (BC).
@@ -120,8 +121,7 @@ public class OCSPToken extends RevocationToken {
 
 	private String getRevocationReason(RevokedStatus revokedStatus) {
 		int reasonId = getRevocationReasonId(revokedStatus);
-		CRLReason crlReason = CRLReason.lookup(reasonId);
-		return crlReason.toString();
+		return CRLReasonEnum.fromInt(reasonId).name();
 	}
 
     private int getRevocationReasonId(RevokedStatus revokedStatus) {
